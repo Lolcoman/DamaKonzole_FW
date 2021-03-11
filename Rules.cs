@@ -29,15 +29,12 @@ namespace DamaKonzole_Framework
 
         };
         public int TahuBezSkoku;
-
         //privátní proměnná hráče
         private int player;
-
         public Rules(Board bo)
         {
             board = bo;
         }
-
         /// <summary>
         /// Metoda pro postavení figurek, dle pravidel
         /// </summary>
