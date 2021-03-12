@@ -5,3 +5,10 @@ C:\Users\Michal\Desktop\DamaKonzole .NET Framework\DamaKonzole_Framework\obj\Deb
 C:\Users\Michal\Desktop\DamaKonzole .NET Framework\DamaKonzole_Framework\obj\Debug\DamaKonzole_Framework.csproj.CoreCompileInputs.cache
 C:\Users\Michal\Desktop\DamaKonzole .NET Framework\DamaKonzole_Framework\obj\Debug\DamaKonzole_Framework.exe
 C:\Users\Michal\Desktop\DamaKonzole .NET Framework\DamaKonzole_Framework\obj\Debug\DamaKonzole_Framework.pdb
+C:\Users\Michal\Desktop\DamaKonzole_FW\bin\Debug\DamaKonzole_Framework.exe.config
+C:\Users\Michal\Desktop\DamaKonzole_FW\bin\Debug\DamaKonzole_Framework.exe
+C:\Users\Michal\Desktop\DamaKonzole_FW\bin\Debug\DamaKonzole_Framework.pdb
+C:\Users\Michal\Desktop\DamaKonzole_FW\obj\Debug\DamaKonzole_Framework.csprojAssemblyReference.cache
+C:\Users\Michal\Desktop\DamaKonzole_FW\obj\Debug\DamaKonzole_Framework.csproj.CoreCompileInputs.cache
+C:\Users\Michal\Desktop\DamaKonzole_FW\obj\Debug\DamaKonzole_Framework.exe
+C:\Users\Michal\Desktop\DamaKonzole_FW\obj\Debug\DamaKonzole_Framework.pdb

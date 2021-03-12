@@ -19,8 +19,6 @@ namespace DamaKonzole_Framework
         private int player2 = 0;
         public int kolo = 0; //Počítadlo kol
 
-        private int pcVstup = 0;
-
         public GameController()
         {
             rules = new Rules(board);
@@ -47,17 +45,17 @@ namespace DamaKonzole_Framework
                 ui.PrintBoard();
 
                 //Tahy počítače
-                if (rules.PlayerOnMove() == 1 && player1 > 0) //pokud hráč na tahu je 1 a player1 > 0 tak true, provede tah a continue na dalšího hráče
+                if (rules.PlayerOnMove() == 1 && player1 > 0 || rules.PlayerOnMove() == -1 && player2 > 0) //pokud hráč na tahu je 1 a player1 > 0 tak true, provede tah a continue na dalšího hráče
                 {
                     ui.PcInfo();
                     int[] move = null;
-                    Thread pc1 = new Thread(() => move = brain.GetBestMove(player1));
-                    pc1.IsBackground = true;
-                    pc1.Start();
+                    Thread pc = new Thread(() => move = brain.GetBestMove(rules.PlayerOnMove() == 1 ? player1 : player2));
+                    pc.IsBackground = true;
+                    pc.Start();
 
                     ConsoleKey pressKey = ConsoleKey.A;
 
-                    while (pc1.IsAlive && pressKey != ConsoleKey.Escape && pressKey != ConsoleKey.Z)
+                    while (pc.IsAlive && pressKey != ConsoleKey.Escape && pressKey != ConsoleKey.Z)
                     {
                         if (Console.KeyAvailable)
                         {
@@ -66,7 +64,8 @@ namespace DamaKonzole_Framework
                     }
                     if (pressKey == ConsoleKey.Escape)
                     {
-                        pc1.Abort();
+                        pc.Abort();
+                        continue;
                     }
                     if (pressKey == ConsoleKey.Z)
                     {
@@ -90,52 +89,6 @@ namespace DamaKonzole_Framework
 
                     kolo = board.HistoryMove.Count / 2; //přičtení do počítadla kol
 
-                    rules.ChangePlayer();
-                    rules.MovesGenerate();
-                    //Thread.Sleep(1500);
-                    continue;
-                }
-
-                if (rules.PlayerOnMove() == -1 && player2 > 0) //pokud hráč na tahu je -1 a player2 > 0 tak true, provede tah a continue
-                {
-                    ui.PcInfo();
-                    int[] move = null;
-                    Thread pc2 = new Thread(() => move = brain.GetBestMove(player2));
-                    pc2.IsBackground = true;
-                    pc2.Start();
-
-                    ConsoleKey pressKey = ConsoleKey.A;
-
-                    while (pc2.IsAlive && pressKey != ConsoleKey.Escape)
-                    {
-
-                        if (Console.KeyAvailable)
-                        {
-                            pressKey = Console.ReadKey().Key;
-                        }
-                    }
-                    if (pressKey == ConsoleKey.Escape)
-                    {
-                        pc2.Abort();
-                    }
-                    if (pressKey == ConsoleKey.Z)
-                    {
-                        ui.SelectPlayer(out player1, out player2);
-                        continue;
-                    }
-                    else
-                    {
-                        board.Move(move, true, false);
-                    }
-
-                    if (move.Length == 8)
-                    {
-                        rules.TahuBezSkoku++;
-                    }
-                    else
-                    {
-                        rules.TahuBezSkoku = 0;
-                    }
                     rules.ChangePlayer();
                     rules.MovesGenerate();
                     //Thread.Sleep(1500);

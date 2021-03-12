@@ -14,6 +14,12 @@ namespace DamaKonzole_Framework
         private Random random = new Random();
         private Rules rules;
         private Board board;
+
+        //public Brain(Board board, Rules rules)
+        //{
+        //    this.board = new Board(board);
+        //    this.rules = new Rules(rules);
+        //}
         public Brain(Board boa, Rules rul)
         {
             board = boa;
@@ -96,7 +102,6 @@ namespace DamaKonzole_Framework
             }
             rules.MovesGenerate(); //vygenerují se zase tahy pro hráče na tahu
             return nejlepsiTahy; //náš nejlepšítah je vrácen
-
         }
         /// <summary>
         /// Metoda MiniMaxu
@@ -105,7 +110,6 @@ namespace DamaKonzole_Framework
         /// <returns></returns>
         private int MiniMax(int hloubka)
         {
-
             if (rules.IsGameFinished()) //pokud je hra u konce tj., cerne figurku = 0 nebo bile = 0
             {
                 int minePesak, mineDama, enemyPesak, enemyDama;

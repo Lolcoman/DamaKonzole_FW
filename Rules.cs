@@ -9,7 +9,6 @@ namespace DamaKonzole_Framework
     class Rules
     {
         private Board board;
-
         //kolekce ListMove pro ukládání tahů
         public List<int[]> ListMove = new List<int[]>();
 
@@ -33,7 +32,13 @@ namespace DamaKonzole_Framework
         //privátní proměnná hráče
         private int player;
 
+        //První konstruktor
         public Rules(Board bo)
+        {
+            board = bo;
+        }
+
+        public Rules(Rules rules, Board bo)
         {
             board = bo;
         }
