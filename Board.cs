@@ -12,7 +12,47 @@ namespace DamaKonzole_Framework
         public List<int[]> HistoryMove = new List<int[]>();
 
         //inicializace proměnné board, jako 2D pole o rozmeřech 8x8
-        static int[,] board = new int[8, 8];
+        //static int[,] board = new int[8, 8];
+        static int[,] board;
+
+        public Board()
+        {
+            board = new int[8, 8];
+            ClearBoard();
+        }
+        /// <summary>
+        /// Stará deska se zkopíruje
+        /// </summary>
+        /// <param name="old"></param>
+        public Board(Board old)
+        {
+            List<int[]> CopyHistoryMove = new List<int[]>(HistoryMove.Count);
+            HistoryMove.ForEach((item) =>
+            {
+                //CopyHistoryMove.Add(new int[](item));
+            });
+            board = new int[8, 8];
+            for (int posY = 0; posY < 8; posY++)
+            {
+                for (int posX = 0; posX < 8; posX++)
+                {
+                    board[posX, posY] = old.GetValue(posX, posY);
+                }
+            }
+        }
+        /// <summary>
+        /// Vymazání desky a nastavení na 0
+        /// </summary>
+        public void ClearBoard()
+        {
+            for (int posY = 0; posY < 8; posY++)
+            {
+                for (int posX = 0; posX < 8; posX++)
+                {
+                    board[posX, posY] = 0;
+                }
+            }
+        }
 
         public Board()
         {

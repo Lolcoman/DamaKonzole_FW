@@ -167,11 +167,7 @@ namespace DamaKonzole_Framework
                 board.Move(plnyVstup, true, false); //pokud je zadáno správně, metoda nastaví pohyb na desce
 
                 //počítání kol
-                if (player1 > 0)
-                {
-                    kolo = 0;
-                }
-                kolo++;
+                kolo = board.HistoryMove.Count / 2;
 
                 if (plnyVstup.Length == 8)
                 {
