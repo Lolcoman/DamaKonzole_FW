@@ -37,10 +37,10 @@ namespace DamaKonzole_Framework
             board = bo;
         }
 
-        public Rules(Rules rules, Board bo)
-        {
-            board = bo;
-        }
+        //public Rules(Rules rules, Board bo)
+        //{
+        //    board = bo;
+        //}
 
         /// <summary>
         /// Metoda pro postavení figurek, dle pravidel

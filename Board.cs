@@ -53,39 +53,6 @@ namespace DamaKonzole_Framework
                 }
             }
         }
-
-        public Board()
-        {
-            board = new int[8, 8];
-            ClearBoard();
-        }
-        public Board(Board old)
-        {
-            List<int[]> CopyHistoryMove = new List<int[]>();
-            foreach (int[] item in HistoryMove)
-            {
-                CopyHistoryMove.Add((int[])item.Clone());
-            }
-            board = new int[8, 8];
-            for (int posY = 0; posY < 8; posY++)
-            {
-                for (int posX = 0; posX < 8; posX++)
-                {
-                    board[posX, posY] = old.GetValue(posX, posY);
-                }
-            }
-        }
-        public void ClearBoard()
-        {
-            for (int posY = 0; posY < 8; posY++)
-            {
-                for (int posX = 0; posX < 8; posX++)
-                {
-                    board[posX, posY] = 0;
-                }
-            }
-        }
-
         /// <summary>
         /// Metoda nastaví hodnotu na zvolených souřadnicích
         /// </summary>
