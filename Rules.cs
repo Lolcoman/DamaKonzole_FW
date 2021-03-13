@@ -41,10 +41,10 @@ namespace DamaKonzole_Framework
             board = bo;
             TahuBezSkoku = rules.TahuBezSkoku;
             player = rules.player;
-            List<int[]> CopyListMove = new List<int[]>();
+            //List<int[]> CopyListMove = new List<int[]>();
             foreach (int[] item in ListMove)
             {
-                CopyListMove.Add((int[])item.Clone());
+                ListMove.Add((int[])item.Clone());
             }
         }
         /// <summary>

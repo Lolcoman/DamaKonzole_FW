@@ -26,10 +26,10 @@ namespace DamaKonzole_Framework
         /// <param name="old"></param>
         public Board(Board old)
         {
-            List<int[]> CopyHistoryMove = new List<int[]>();
+            //List<int[]> CopyHistoryMove = new List<int[]>();
             foreach (int[] item in HistoryMove)
             {
-                CopyHistoryMove.Add((int[])item.Clone());
+                HistoryMove.Add((int[])item.Clone());
             }
             board = new int[8, 8];
             for (int posY = 0; posY < 8; posY++)
