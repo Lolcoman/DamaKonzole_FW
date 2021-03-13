@@ -49,6 +49,7 @@ namespace DamaKonzole_Framework
                 {
                     ui.PcInfo();
                     int[] move = null;
+                    Brain brain = new Brain(board, rules);
                     Thread pc = new Thread(() => move = brain.GetBestMove(rules.PlayerOnMove() == 1 ? player1 : player2));
                     pc.IsBackground = true;
                     pc.Start();

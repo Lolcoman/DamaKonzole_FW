@@ -15,15 +15,12 @@ namespace DamaKonzole_Framework
         private Rules rules;
         private Board board;
 
-        //public Brain(Board board, Rules rules)
-        //{
-        //    this.board = new Board(board);
-        //    this.rules = new Rules(rules);
-        //}
-        public Brain(Board boa, Rules rul)
+        public Brain(Board board, Rules rul)
         {
-            board = boa;
-            rules = rul;
+            this.board = new Board(board);
+            this.rules = new Rules(board,rul);
+            //board = boa;
+            //rules = rul;
         }
 
         /// <summary>

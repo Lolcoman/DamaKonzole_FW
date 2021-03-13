@@ -36,19 +36,17 @@ namespace DamaKonzole_Framework
         {
             board = bo;
         }
-
         public Rules(Board bo,Rules rules)
         {
             board = bo;
-            int CopyTahBezSkoku = TahuBezSkoku;
-            int CopyPlayer = player;
+            TahuBezSkoku = rules.TahuBezSkoku;
+            player = rules.player;
             List<int[]> CopyListMove = new List<int[]>();
             foreach (int[] item in ListMove)
             {
                 CopyListMove.Add((int[])item.Clone());
             }
         }
-
         /// <summary>
         /// Metoda pro postavení figurek, dle pravidel
         /// </summary>
@@ -73,7 +71,6 @@ namespace DamaKonzole_Framework
                 }
             }
         }
-
         /// <summary>
         /// Metoda která vrací celý kompletní tah a porovná tah v seznamuTahu
         /// </summary>
@@ -169,7 +166,6 @@ namespace DamaKonzole_Framework
                 ListMove[i] = result; //zde se vrátí ListMove bez našeho skokou C4-D5-E6 = |2|3|1|0|-|3|4|-1|0|-|4|5|0|1| = delka 12
             }
         }
-
         /// <summary>
         /// Inicializace hráče na tahu
         /// </summary>
@@ -368,7 +364,6 @@ namespace DamaKonzole_Framework
             ListMove.Add(oldMove.Concat(move).ToArray()); //přidá do ListMove náš oldMove + move 
             board.Move(move, false, true); //tah se provede zpět 
         }
-
         /// <summary>
         /// Metoda vrátí true pokud cerna = 0 nebo bila = 0, pro testování zda hra neskončila
         /// </summary>
@@ -408,7 +403,6 @@ namespace DamaKonzole_Framework
                     }
                 }
             }
-
             //Pravidlo na výběr nejdelšího tahu/skoku
             int maxDelka = 0;
             for (int i = 0; i < ListMove.Count; i++) //Cyklus který projede celý list a najde největší prvek
