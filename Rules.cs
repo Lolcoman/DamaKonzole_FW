@@ -37,10 +37,17 @@ namespace DamaKonzole_Framework
             board = bo;
         }
 
-        //public Rules(Rules rules, Board bo)
-        //{
-        //    board = bo;
-        //}
+        public Rules(Board bo,Rules rules)
+        {
+            board = bo;
+            int CopyTahBezSkoku = TahuBezSkoku;
+            int CopyPlayer = player;
+            List<int[]> CopyListMove = new List<int[]>();
+            foreach (int[] item in ListMove)
+            {
+                CopyListMove.Add((int[])item.Clone());
+            }
+        }
 
         /// <summary>
         /// Metoda pro postavení figurek, dle pravidel
