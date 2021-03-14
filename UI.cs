@@ -117,6 +117,10 @@ namespace DamaKonzole_Framework
             //Zkouška výpisu historie
             if (input == "zpet")
             {
+                if (board.HistoryMove.Count == 0)
+                {
+                    return new int[] { -1 };
+                }
                 Console.WriteLine("Proveden zpětný tah!");
                 return new int[] { -3 };
             }
