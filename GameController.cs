@@ -66,8 +66,7 @@ namespace DamaKonzole_Framework
                     if (pressKey == ConsoleKey.Escape)
                     {
                         pc.Abort();
-                        //continue;
-                        break;
+                        continue;
                     }
                     if (pressKey == ConsoleKey.Z)
                     {

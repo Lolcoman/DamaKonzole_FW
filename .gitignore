@@ -3,3 +3,9 @@
 .vs/DamaKonzole_Framework/v16/.suo
 bin/Debug/DamaKonzole_Framework.exe
 bin/Debug/DamaKonzole_Framework.pdb
+*.exe
+*.cache
+*.pdb
+*.pdb
+*.exe
+.vs/DamaKonzole_Framework/v16/.suo
