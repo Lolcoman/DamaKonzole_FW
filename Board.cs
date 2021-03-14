@@ -12,8 +12,7 @@ namespace DamaKonzole_Framework
         public List<int[]> HistoryMove = new List<int[]>();
 
         //inicializace proměnné board, jako 2D pole o rozmeřech 8x8
-        //static int[,] board = new int[8, 8];
-        static int[,] board;
+        private int[,] board;
 
         public Board()
         {
@@ -26,8 +25,7 @@ namespace DamaKonzole_Framework
         /// <param name="old"></param>
         public Board(Board old)
         {
-            //List<int[]> CopyHistoryMove = new List<int[]>();
-            foreach (int[] item in HistoryMove)
+            foreach (int[] item in old.HistoryMove)
             {
                 HistoryMove.Add((int[])item.Clone());
             }

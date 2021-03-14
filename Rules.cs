@@ -9,6 +9,7 @@ namespace DamaKonzole_Framework
     class Rules
     {
         private Board board;
+
         //kolekce ListMove pro ukládání tahů
         public List<int[]> ListMove = new List<int[]>();
 
@@ -41,8 +42,7 @@ namespace DamaKonzole_Framework
             board = bo;
             TahuBezSkoku = rules.TahuBezSkoku;
             player = rules.player;
-            //List<int[]> CopyListMove = new List<int[]>();
-            foreach (int[] item in ListMove)
+            foreach (int[] item in rules.ListMove)
             {
                 ListMove.Add((int[])item.Clone());
             }
