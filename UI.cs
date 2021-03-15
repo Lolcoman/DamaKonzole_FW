@@ -8,7 +8,6 @@ namespace DamaKonzole_Framework
 {
     class UI
     {
-        //TEST!!
         private int SelectedIndex;
         private string[] Options;
         private string Prompt;
@@ -121,9 +120,11 @@ namespace DamaKonzole_Framework
                 {
                     return new int[] { -1 };
                 }
+
                 Console.WriteLine("Proveden zpětný tah!");
                 return new int[] { -3 };
             }
+
             if (input == "hist")
             {
                 Console.WriteLine("Historie všech tahů:\n");
