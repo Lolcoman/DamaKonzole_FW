@@ -118,10 +118,9 @@ namespace DamaKonzole_Framework
             {
                 if (board.HistoryMove.Count == 0)
                 {
+                    Console.WriteLine("Prázdná historie!");
                     return new int[] { -1 };
                 }
-
-                Console.WriteLine("Proveden zpětný tah!");
                 return new int[] { -3 };
             }
 
