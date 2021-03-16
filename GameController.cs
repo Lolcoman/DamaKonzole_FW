@@ -116,27 +116,15 @@ namespace DamaKonzole_Framework
                         ui.PrintHelpMove(board.HistoryMove);
                     }
 
-                    //Možnost tahu zpět
+                    //Možnost tahu zpět/undo
                     if (vstup[0] == -3)
                     {
-                        if (rules.PlayerOnMove() == 1)
+                        if (ptrTah > 0)
                         {
-                            if (board.HistoryMove.Count % 2 == 0)
-                            {
-                                ptrTah = board.HistoryMove.Count;
-                            }
+                            ptrTah--;
                             posledniTah = board.HistoryMove[ptrTah];
                             board.Move(posledniTah, false, true);
-                            //continue;
-                        }
-                        if (rules.PlayerOnMove() == -1)
-                        {
-                            if (board.HistoryMove.Count % 3 == 0)
-                            {
-                                ptrTah = board.HistoryMove.Count-1;
-                                posledniTah = board.HistoryMove[ptrTah];
-                            }
-                            board.Move(posledniTah, false, true);
+
                         }
                         //chyba pokud černý ještě netáhl
                         if (rules.PlayerOnMove() == -1 && board.HistoryMove.Count - 1 == 0)
@@ -144,8 +132,25 @@ namespace DamaKonzole_Framework
                             ui.Mistake();
                             ui.InputUser(rules.PlayerOnMove());
                         }
-                        //board.Move(posledniTah, false, true);
-
+                        rules.TahuBezSkoku--;
+                        rules.ChangePlayer();
+                        ui.PrintBoard();
+                        rules.MovesGenerate();
+                        continue;
+                    }
+                    if (vstup[0] == -6)
+                    {
+                        if (ptrTah < board.HistoryMove.Count)
+                        {
+                            board.Move(posledniTah, false, true);
+                            ptrTah++;
+                        }
+                        //chyba pokud černý ještě netáhl
+                        if (rules.PlayerOnMove() == -1 && board.HistoryMove.Count - 1 == 0)
+                        {
+                            ui.Mistake();
+                            ui.InputUser(rules.PlayerOnMove());
+                        }
                         rules.TahuBezSkoku--;
                         rules.ChangePlayer();
                         ui.PrintBoard();
@@ -153,6 +158,7 @@ namespace DamaKonzole_Framework
                         continue;
                     }
 
+                    //Možnost tahu zpět/undo
                     if (vstup[0] == -2) //Pokud hráč do konzole zadá HELP
                     {
                         if (vstup.Length > 1) //Pokud ještě zadá pro jakou figurku chce help

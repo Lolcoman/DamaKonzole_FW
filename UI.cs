@@ -74,6 +74,7 @@ namespace DamaKonzole_Framework
             Console.WriteLine("'help' pro nápovědu tahů");
             Console.WriteLine("'hist' pro historii tahů");
             Console.WriteLine("'zpet' pro tah zpět");
+            Console.WriteLine("'vpred' pro tah vpřed");
             Console.WriteLine("'exit' pro návrat");
             //Vstup uživatele s převedením na malá písmena
             //Špatný vstup vrácena -1, Správný vstup vráceno pole {X1,Y1,X2,Y2}
@@ -113,7 +114,7 @@ namespace DamaKonzole_Framework
                 return new int[] { -5 };
             }
 
-            //Zkouška výpisu historie
+            //Tah zpět undo
             if (input == "zpet")
             {
                 if (board.HistoryMove.Count == 0)
@@ -122,6 +123,16 @@ namespace DamaKonzole_Framework
                     return new int[] { -1 };
                 }
                 return new int[] { -3 };
+            }
+            //Tah vpřed redo
+            if (input == "vpred")
+            {
+                if (board.HistoryMove.Count == 0)
+                {
+                    Console.WriteLine("Prázdná historie!");
+                    return new int[] { -1 };
+                }
+                return new int[] { -6 };
             }
 
             if (input == "hist")
