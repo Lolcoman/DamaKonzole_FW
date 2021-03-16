@@ -138,11 +138,12 @@ namespace DamaKonzole_Framework
                         rules.MovesGenerate();
                         continue;
                     }
+
                     if (vstup[0] == -6)
                     {
                         if (ptrTah < board.HistoryMove.Count)
                         {
-                            board.Move(posledniTah, false, true);
+                            board.Move(posledniTah, false, false);
                             ptrTah++;
                         }
                         //chyba pokud černý ještě netáhl
