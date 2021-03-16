@@ -35,7 +35,7 @@ namespace DamaKonzole_Framework
             rules.MovesGenerate(); //vygenerování všech tahů pro aktuálního hráče tj. 1-bílý
             rules.TahuBezSkoku = 0;
             int kolo = 0; //počítadlo kol
-            int ptrTah = 0;//ukazatel na poslední tah v historii tahů
+            int ptrTah = board.HistoryMove.Count;//ukazatel na poslední tah v historii tahů
             int[] posledniTah = null; //uložen poslední tah
 
             while (!rules.IsGameFinished()) //cyklus dokud platí že oba hráči mají figurky, jinak konec
@@ -119,9 +119,23 @@ namespace DamaKonzole_Framework
                     //Možnost tahu zpět
                     if (vstup[0] == -3)
                     {
-                        if (ptrTah > 0)
+                        if (rules.PlayerOnMove() == 1)
                         {
-                            ptrTah--;
+                            if (board.HistoryMove.Count % 2 == 0)
+                            {
+                                ptrTah = board.HistoryMove.Count;
+                            }
+                            posledniTah = board.HistoryMove[ptrTah];
+                            board.Move(posledniTah, false, true);
+                            //continue;
+                        }
+                        if (rules.PlayerOnMove() == -1)
+                        {
+                            if (board.HistoryMove.Count % 3 == 0)
+                            {
+                                ptrTah = board.HistoryMove.Count-1;
+                                posledniTah = board.HistoryMove[ptrTah];
+                            }
                             board.Move(posledniTah, false, true);
                         }
                         //chyba pokud černý ještě netáhl
@@ -130,16 +144,8 @@ namespace DamaKonzole_Framework
                             ui.Mistake();
                             ui.InputUser(rules.PlayerOnMove());
                         }
+                        //board.Move(posledniTah, false, true);
 
-                        if (rules.PlayerOnMove() == -1)
-                        {
-                            posledniTah = board.HistoryMove[ptrTah - 1] ;
-                        }
-                        if (rules.PlayerOnMove() == 1)  
-                        {
-                            posledniTah = board.HistoryMove[ptrTah];
-                        }
-                        board.Move(posledniTah, false, true);
                         rules.TahuBezSkoku--;
                         rules.ChangePlayer();
                         ui.PrintBoard();
