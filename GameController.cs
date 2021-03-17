@@ -124,7 +124,6 @@ namespace DamaKonzole_Framework
                             posledniTah = board.HistoryMove[ptrTah];
                             board.Move(posledniTah, false, true);
                             rules.TahuBezSkoku--;
-                            kolo = board.HistoryMove.Count / 2;
                             rules.ChangePlayer();
                             Console.Clear();
                             ui.PocetKol(kolo);
@@ -143,7 +142,6 @@ namespace DamaKonzole_Framework
                             board.Move(posledniTah, false, false);
                             ptrTah++;
                             rules.TahuBezSkoku++;
-                            kolo = board.HistoryMove.Count / 2;
                             rules.ChangePlayer();
                             Console.Clear();
                             ui.PocetKol(kolo);
