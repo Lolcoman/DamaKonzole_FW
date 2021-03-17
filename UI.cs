@@ -73,8 +73,9 @@ namespace DamaKonzole_Framework
             Console.WriteLine("Hraje {0} zadej pohyb ve formátu(A2-B3):", playerOnMove > 0 ? "BÍLÝ s o/O" : "ČERNÝ s x/X"); //použití ternárního operátoru pro informaci pro uživatele který hráč je na tahu, pokud > 0 tak hraje bílý
             Console.WriteLine("'help' pro nápovědu tahů");
             Console.WriteLine("'hist' pro historii tahů");
-            Console.WriteLine("'zpet' pro tah zpět");
+            Console.WriteLine("'zpet' a pro tah zpět");
             Console.WriteLine("'vpred' pro tah vpřed");
+            Console.WriteLine("'save' a 'load' pro uložení/načtení");
             Console.WriteLine("'exit' pro návrat");
             //Vstup uživatele s převedením na malá písmena
             //Špatný vstup vrácena -1, Správný vstup vráceno pole {X1,Y1,X2,Y2}
@@ -108,6 +109,16 @@ namespace DamaKonzole_Framework
                 //return new int[] { -2, helpX1, helpY1 };
             }
 
+            //Uložení hry
+            if (input == "save")
+            {
+                return new int[] { -8 };
+            }
+            //Načtení hry
+            if (input == "load")
+            {
+                return new int[] { -9 };
+            }
             //Pro zpět do menu
             if (input == "exit")
             {
@@ -134,7 +145,7 @@ namespace DamaKonzole_Framework
                 }
                 return new int[] { -6 };
             }
-
+            //Historie tahů
             if (input == "hist")
             {
                 Console.WriteLine("Historie všech tahů:\n");

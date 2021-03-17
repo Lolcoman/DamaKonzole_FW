@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.IO;
 
 namespace DamaKonzole_Framework
 {
@@ -17,6 +18,10 @@ namespace DamaKonzole_Framework
         //proměnné hráčů, pro uživatele 0, 1-4 obtížnost PC
         private int player1 = 0;
         private int player2 = 0;
+
+        //cesta k souboru uložení
+        string filePath = @"C:\demo\test.txt";
+        List<string> lines = new List<string>();
 
         public GameController()
         {
@@ -175,6 +180,49 @@ namespace DamaKonzole_Framework
                         if (!platnyVstup) //pokud není vypíše uživately chybu
                         {
                             ui.Mistake(); //chyba
+                        }
+                    }
+
+                    //Uložení hry
+                    if (vstup[0] == -8)
+                    {
+                        using (StreamWriter sw = new StreamWriter(@"test.txt"))
+                        {
+                            sw.WriteLine("player1:{0}", player1);
+                            sw.WriteLine("player2:{0}", player2);
+                            sw.WriteLine("pointer:{0}", ptrTah);
+                            foreach (int[] item in board.HistoryMove)
+                            {
+                                for (int j = 0; j < board.HistoryMove.Count; j++)
+                                {
+                                    for (int i = 0; i < board.HistoryMove[j].Length; i++)
+                                    {
+                                        sw.Write(item[i] + "|");
+                                    }
+                                    sw.WriteLine();
+                                    break;
+                                }
+                            }
+                            sw.Flush();
+                        }
+                    }
+                    if (vstup[0] == -9)
+                    {
+                        using (StreamReader sr = new StreamReader(@"test.txt"))
+                        {
+                            string text = sr.ReadToEnd();
+                            char hrac1 = text[8];
+                            int bily = (int)(hrac1 - '0');
+
+                            char hrac2 = text[19];
+                            int cerny = (int)(hrac2 - '0');
+
+                            char ptr = text[30];
+                            int ukazatel = (int)(ptr - '0');
+
+                            Console.WriteLine(bily);
+                            Console.WriteLine(cerny);
+                            Console.WriteLine(ukazatel);
                         }
                     }
 
