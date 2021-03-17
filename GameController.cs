@@ -107,7 +107,6 @@ namespace DamaKonzole_Framework
 
                 while (!platnyVstup) //Dokud je vstup !playtnyVstup tak pokračuje
                 {
-                    //ptrTah++;
                     vstup = ui.InputUser(rules.PlayerOnMove()); //pokud -1 tak se podmínka neprovede protože -1 >= 0, pokud 0 tak se provede 0=0 a zkontroluje se platnost tahu
 
                     //Výpis historie tahu
@@ -124,43 +123,38 @@ namespace DamaKonzole_Framework
                             ptrTah--;
                             posledniTah = board.HistoryMove[ptrTah];
                             board.Move(posledniTah, false, true);
+                            rules.TahuBezSkoku--;
+                            kolo = board.HistoryMove.Count / 2;
+                            rules.ChangePlayer();
+                            Console.Clear();
+                            ui.PocetKol(kolo);
+                            ui.PocetTahuBezSkoku(rules.TahuBezSkoku);
+                            ui.PrintBoard();
+                            rules.MovesGenerate();
 
                         }
-                        //chyba pokud černý ještě netáhl
-                        if (rules.PlayerOnMove() == -1 && board.HistoryMove.Count - 1 == 0)
-                        {
-                            ui.Mistake();
-                            ui.InputUser(rules.PlayerOnMove());
-                        }
-                        rules.TahuBezSkoku--;
-                        rules.ChangePlayer();
-                        ui.PrintBoard();
-                        rules.MovesGenerate();
-                        continue;
                     }
-
+                    //Možnost tahu vpřed/redo
                     if (vstup[0] == -6)
                     {
-                        if (ptrTah < board.HistoryMove.Count)
+                        if (ptrTah < board.HistoryMove.Count && board.HistoryMove.Count > 0)
                         {
+                            posledniTah = board.HistoryMove[ptrTah];
                             board.Move(posledniTah, false, false);
                             ptrTah++;
+                            rules.TahuBezSkoku++;
+                            kolo = board.HistoryMove.Count / 2;
+                            rules.ChangePlayer();
+                            Console.Clear();
+                            ui.PocetKol(kolo);
+                            ui.PocetTahuBezSkoku(rules.TahuBezSkoku);
+                            ui.PrintBoard();
+                            rules.MovesGenerate();
                         }
-                        //chyba pokud černý ještě netáhl
-                        if (rules.PlayerOnMove() == -1 && board.HistoryMove.Count - 1 == 0)
-                        {
-                            ui.Mistake();
-                            ui.InputUser(rules.PlayerOnMove());
-                        }
-                        rules.TahuBezSkoku--;
-                        rules.ChangePlayer();
-                        ui.PrintBoard();
-                        rules.MovesGenerate();
-                        continue;
                     }
 
-                    //Možnost tahu zpět/undo
-                    if (vstup[0] == -2) //Pokud hráč do konzole zadá HELP
+                    //Pokud hráč do konzole zadá HELP
+                    if (vstup[0] == -2)
                     {
                         if (vstup.Length > 1) //Pokud ještě zadá pro jakou figurku chce help
                         {
@@ -172,6 +166,8 @@ namespace DamaKonzole_Framework
                             //ui.PrintHelpMove(board.HistoryMove); //všechny možné tahy hráče
                         }
                     }
+
+                    //SPRÁVNĚ
                     if (vstup[0] >= 0) //pokud je zadán správný pohyb tj A2-B3
                     {
                         plnyVstup = rules.FullMove(vstup); //převedení na kompletní pohyb který se skládá ze 4 souřadnic X,Y, stav před, stav po
