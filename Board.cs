@@ -167,7 +167,7 @@ namespace DamaKonzole_Framework
         /// </summary>
         /// <param name="stone"></param>
         /// <returns></returns>
-        private string StoneToString(int stone)
+        public string StoneToString(int stone)
         {
             switch (stone)
             {

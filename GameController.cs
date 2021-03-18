@@ -14,20 +14,18 @@ namespace DamaKonzole_Framework
         private Rules rules;
         private UI ui;
         private Brain brain;
+        private Data data;   
 
         //proměnné hráčů, pro uživatele 0, 1-4 obtížnost PC
         private int player1 = 0;
         private int player2 = 0;
-
-        //cesta k souboru uložení
-        string filePath = @"C:\demo\test.txt";
-        List<string> lines = new List<string>();
 
         public GameController()
         {
             rules = new Rules(board);
             ui = new UI(board);
             brain = new Brain(board, rules);
+            data = new Data();
         }
         /// <summary>
         /// Hlavní herní smyčka
@@ -186,25 +184,7 @@ namespace DamaKonzole_Framework
                     //Uložení hry
                     if (vstup[0] == -8)
                     {
-                        using (StreamWriter sw = new StreamWriter(@"test.txt"))
-                        {
-                            sw.WriteLine("player1:{0}", player1);
-                            sw.WriteLine("player2:{0}", player2);
-                            sw.WriteLine("pointer:{0}", ptrTah);
-                            foreach (int[] item in board.HistoryMove)
-                            {
-                                for (int j = 0; j < board.HistoryMove.Count; j++)
-                                {
-                                    for (int i = 0; i < board.HistoryMove[j].Length; i++)
-                                    {
-                                        sw.Write(item[i] + "|");
-                                    }
-                                    sw.WriteLine();
-                                    break;
-                                }
-                            }
-                            sw.Flush();
-                        }
+                        data.SaveGame(player1, player2, ptrTah, board.HistoryMove);
                     }
                     if (vstup[0] == -9)
                     {
