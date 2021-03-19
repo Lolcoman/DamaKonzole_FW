@@ -209,40 +209,69 @@ namespace DamaKonzole_Framework
                             Console.WriteLine(cerny);
                             Console.WriteLine(ukazatel);
 
+                            List<int[]> seznam = new List<int[]>();
                             string historieTahu;
                             while ((historieTahu = sr.ReadLine()) != null)
                             {
                                 string[] rozdeleno = historieTahu.Split('|');
                                 //char x1 = rozdeleno[0];
 
+                                //char x1, y1, x2, y2; // X1Y1 vybrany kamen, X2Y2 kam pohnout
+                                //x1 = input[0];
+                                //int X1 = (int)(x1 - 'a'); //převod v tabulce ASCII
+                                //y1 = input[1];
+                                //int Y1 = (int)(y1 - '1'); //1, protože 0 není v herní desce
+                                //x2 = input[3];
+                                //int X2 = (int)(x2 - 'a');
+                                //y2 = input[4];
+                                //int Y2 = (int)(y2 - '1');
+
+                                for (int i = 0; i < rozdeleno.Length - 1; i++) // i = 4; 4 >=0; i = 4 - 4 
+                                {
+                                    seznam.Add(new int[] { (int)(historieTahu[i] - 'a'), (int)(historieTahu[i + 2] - '1'), historieTahu[i + 4], historieTahu[i + 6] });
+                                }
                                 for (int i = 0; i < rozdeleno.Length - 1; i++)
                                 {
                                     Console.Write(rozdeleno[i]);
-
-
-                                    for (int j = 0; j < rozdeleno.Length - 1; j++)
-                                    {
-                                        //Console.WriteLine(rozdeleno[i][j]);
-                                    }
                                 }
                                 Console.WriteLine();
+
+                                for (int i = 0; i < seznam.Count; i++)
+                                {
+                                    for (int j = 0; j < seznam[i].Length; j++)
+                                    {
+                                        Console.Write(seznam[i][j]);
+                                    }
+                                    Console.WriteLine();
+                                }
+
+                                //foreach (int[] item in seznam)
+                                //{
+                                //    for (int i = 0; i < item.Length; i = i + 4)
+                                //    {
+                                //        Console.WriteLine("{0}{1}{2}{3}", (int)(item[0 + i] - 'a'), (int)(item[1 + i] - '1'), (int)(item[2 + i] - 'v'), (int)(item[3 + i] - '0'));
+                                //    }
+                                //}
+
+                                //for (int i = 0; i < rozdeleno.Length - 1; i++)
+                                //{
+
+                                //    Console.Write(rozdeleno[i]);
+
+
+                                //    for (int j = 0; j < rozdeleno.Length - 1; j++)
+                                //    {
+                                //        //Console.WriteLine(rozdeleno[i][j]);
+                                //    }
+                                //}
+                                //Console.WriteLine();
                                 //Console.WriteLine(x1);
                                 //Console.WriteLine(rozdeleno[0][1]);
 
                             }
-
-                            List<int[]> seznam = new List<int[]>();
                             //for (int i = 0; i < historieTahu.Length; i = i + 2) // i = 4; 4 >=0; i = 4 - 4 
                             //{
                             //    seznam.Add(new int[] { historieTahu[i], historieTahu[i + 2], historieTahu[i + 4], historieTahu[i + 6] });
-                            //}
-
-                            //foreach (int[] item in seznam)
-                            //{
-                            //    for (int i = 0; i < item.Length; i = i + 4)
-                            //    {
-                            //        Console.WriteLine("{0}{1}{2}{3}", (int)(item[0 + i] - 'a'),(int)(item[1 + i] - '1'), (int)(item[2 + i] - 'v'), (int)(item[3 + i] - '0'));
-                            //    }
                             //}
                         }
                     }

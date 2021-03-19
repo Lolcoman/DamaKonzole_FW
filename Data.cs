@@ -45,5 +45,21 @@ namespace DamaKonzole_Framework
                     return "0";
             }
         }
+        public int StringToStone(string stone)
+        {
+            switch (stone)
+            {
+                case "w":
+                    return 0;
+                case "W":
+                    return 0;
+                case "b":
+                    return -1;
+                case "B":
+                    return -1;
+                default:
+                    return 0;
+            }
+        }
     }
 }
