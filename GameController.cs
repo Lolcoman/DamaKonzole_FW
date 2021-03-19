@@ -186,23 +186,64 @@ namespace DamaKonzole_Framework
                     {
                         data.SaveGame(player1, player2, ptrTah, board.HistoryMove);
                     }
+
+                    //Načítání hry
                     if (vstup[0] == -9)
                     {
                         using (StreamReader sr = new StreamReader(@"test.txt"))
                         {
-                            string text = sr.ReadToEnd();
-                            char hrac1 = text[8];
+                            string prvniRadek = sr.ReadLine();
+                            char hrac1 = prvniRadek[8];
                             int bily = (int)(hrac1 - '0');
 
-                            char hrac2 = text[19];
+                            string druhyRadek = sr.ReadLine();
+                            char hrac2 = druhyRadek[8];
                             int cerny = (int)(hrac2 - '0');
 
-                            char ptr = text[30];
+                            string tretiRadek = sr.ReadLine();
+                            char ptr = tretiRadek[8];
                             int ukazatel = (int)(ptr - '0');
+
 
                             Console.WriteLine(bily);
                             Console.WriteLine(cerny);
                             Console.WriteLine(ukazatel);
+
+                            string historieTahu;
+                            while ((historieTahu = sr.ReadLine()) != null)
+                            {
+                                string[] rozdeleno = historieTahu.Split('|');
+                                //char x1 = rozdeleno[0];
+
+                                for (int i = 0; i < rozdeleno.Length - 1; i++)
+                                {
+                                    Console.Write(rozdeleno[i]);
+
+
+                                    for (int j = 0; j < rozdeleno.Length - 1; j++)
+                                    {
+                                        //Console.WriteLine(rozdeleno[i][j]);
+                                    }
+                                }
+                                Console.WriteLine();
+                                //Console.WriteLine(x1);
+                                //Console.WriteLine(rozdeleno[0][1]);
+
+                            }
+
+                            List<int[]> seznam = new List<int[]>();
+                            //for (int i = 0; i < historieTahu.Length; i = i + 2) // i = 4; 4 >=0; i = 4 - 4 
+                            //{
+                            //    seznam.Add(new int[] { historieTahu[i], historieTahu[i + 2], historieTahu[i + 4], historieTahu[i + 6] });
+                            //}
+
+                            //foreach (int[] item in seznam)
+                            //{
+                            //    for (int i = 0; i < item.Length; i = i + 4)
+                            //    {
+                            //        Console.WriteLine("{0}{1}{2}{3}", (int)(item[0 + i] - 'a'),(int)(item[1 + i] - '1'), (int)(item[2 + i] - 'v'), (int)(item[3 + i] - '0'));
+                            //    }
+                            //}
                         }
                     }
 

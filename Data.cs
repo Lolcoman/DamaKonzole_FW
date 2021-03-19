@@ -21,7 +21,7 @@ namespace DamaKonzole_Framework
                     string vystup = null;
                     for (int i = 0; i < item.Length; i = i + 4)
                     {
-                        vystup = String.Format("{0}|{1}|{2}|{3}|", item[0 + i], item[1 + i], (StoneToString(item[2 + i])),(StoneToString(item[3 + i])));
+                        vystup = String.Format("{0}|{1}|{2}|{3}|", (char)(item[0 + i] + 'a'), (char)(item[1 + i] + '1'), (StoneToString(item[2 + i])),(StoneToString(item[3 + i])));
                         sw.Write(vystup);
                     }
                     sw.WriteLine();
