@@ -213,7 +213,6 @@ namespace DamaKonzole_Framework
                             string historieTahu;
                             while ((historieTahu = sr.ReadLine()) != null)
                             {
-                                string[] rozdeleno = historieTahu.Split('|');
                                 //char x1 = rozdeleno[0];
 
                                 //char x1, y1, x2, y2; // X1Y1 vybrany kamen, X2Y2 kam pohnout
@@ -226,9 +225,12 @@ namespace DamaKonzole_Framework
                                 //y2 = input[4];
                                 //int Y2 = (int)(y2 - '1');
 
-                                for (int i = 0; i < rozdeleno.Length - 1; i++) // i = 4; 4 >=0; i = 4 - 4 
+                                //for (int i = 0; i < rozdeleno.Length - 1; i++)
+
+                                string[] rozdeleno = historieTahu.Split('|');
+                                for (int i = rozdeleno.Length - 4; i >= 0; i -= 4) // i = 4; 4 >=0; i = 4 - 4 
                                 {
-                                    seznam.Add(new int[] { (int)(historieTahu[i] - 'a'), (int)(historieTahu[i + 2] - '1'), historieTahu[i + 4], historieTahu[i + 6] });
+                                    seznam.Add(new int[] { (int)(historieTahu[i] - 'a'), (int)(historieTahu[i + 2] - '1'), data.CharToStone(historieTahu[i + 4]), data.CharToStone(historieTahu[i + 6]) });
                                 }
                                 for (int i = 0; i < rozdeleno.Length - 1; i++)
                                 {
