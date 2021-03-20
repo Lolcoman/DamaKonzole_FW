@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DamaKonzole_Framework
 {
     class Data
     {
+        private Board board = new Board();
+        private Rules rules;
+        
+        public Data()
+        {
+            rules = new Rules(board);
+        }
         /// <summary>
         /// Metoda pro uložení hry
         /// </summary>
@@ -18,7 +23,7 @@ namespace DamaKonzole_Framework
         /// <param name="historie"></param>
         public void SaveGame(int player1, int player2, int ptrTah, List<int[]> historie)
         {
-            using (StreamWriter sw = new StreamWriter(@"test.txt"))
+            using (StreamWriter sw = new StreamWriter(@"save.txt"))
             {
                 sw.WriteLine("player1:{0}", player1);
                 sw.WriteLine("player2:{0}", player2);
@@ -36,9 +41,9 @@ namespace DamaKonzole_Framework
                 sw.Flush();
             }
         }
-        public void LoadGame()
+        public bool LoadGame(out Board bo, out Rules ru, out int player1, out int player2)
         {
-            using (StreamReader sr = new StreamReader(@"test.txt"))
+            using (StreamReader sr = new StreamReader(@"save.txt"))
             {
                 string prvniRadek = sr.ReadLine();
                 char hrac1 = prvniRadek[8];
@@ -64,6 +69,19 @@ namespace DamaKonzole_Framework
                     }
                     seznam.Add(celyPohyb);
                 }
+
+                rules.InitBoard();
+                foreach (int[] pohyb in seznam)
+                {
+                    board.Move(pohyb, false, false);
+                }
+                bo = board;
+                ru = rules;
+                player1 = bily;
+                player2 = cerny;
+                return true;
+
+
                 //foreach (int[] item in seznam)
                 //{
                 //    for (int i = 0; i < item.Length; i = i + 4)

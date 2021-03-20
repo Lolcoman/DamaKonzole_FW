@@ -190,7 +190,8 @@ namespace DamaKonzole_Framework
                     //Načítání hry
                     if (vstup[0] == -9)
                     {
-                        data.LoadGame();
+                        data.LoadGame(out board,out rules,out player1,out player2);
+                        this.board = board;
                     }
 
                     //Zpět do menu
