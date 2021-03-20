@@ -11,11 +11,12 @@ namespace DamaKonzole_Framework
         private int SelectedIndex;
         private string[] Options;
         private string Prompt;
-        private Board board;
-        public UI(Board bo)
-        {
-            board = bo;
-        }
+
+        //private Board board;
+        //public UI(Board bo)
+        //{
+        //    board = bo;
+        //}
         /// <summary>
         /// Metoda pro vybrání hráčů, pc nebo člověk
         /// </summary>
@@ -68,7 +69,7 @@ namespace DamaKonzole_Framework
             Console.WriteLine("Stiskni 'Z' pro změnu hráčů");
         }
 
-        public int[] InputUser(int playerOnMove) //příjmá int, který hráč je na tahu
+        public int[] InputUser(int playerOnMove, Board board) //příjmá int, který hráč je na tahu
         {
             Console.WriteLine("Hraje {0} zadej pohyb ve formátu(A2-B3):", playerOnMove > 0 ? "BÍLÝ s o/O" : "ČERNÝ s x/X"); //použití ternárního operátoru pro informaci pro uživatele který hráč je na tahu, pokud > 0 tak hraje bílý
             Console.WriteLine("'help' pro nápovědu tahů");
@@ -172,7 +173,7 @@ namespace DamaKonzole_Framework
         /// <summary>
         /// Vykreslení herní desky
         /// </summary>
-        public void PrintBoard()
+        public void PrintBoard(Board board)
         {
             Console.WriteLine("     A   B   C   D   E   F   G   H");
             for (int y = 7; y >= 0; y--)
@@ -253,7 +254,7 @@ namespace DamaKonzole_Framework
         /// Metoda vypíše tahy
         /// </summary>
         /// <param name="seznam"></param>
-        public void PrintHelpMove(List<int[]> seznam)
+        public void PrintHelpMove(List<int[]> seznam, Board board)
         {
             if (seznam.Count == 0)
             {
@@ -435,7 +436,7 @@ Pro výběr použij šipky";
         /// <summary>
         /// Metoda pro info kdo vyhrál
         /// </summary>
-        public void Finished()
+        public void Finished(Board board)
         {
             int bilyPesak, cernyPesak, bilaDama, cernaDama;
             board.CountStones(out bilyPesak, out bilaDama, out cernyPesak, out cernaDama);

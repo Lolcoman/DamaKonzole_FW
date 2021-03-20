@@ -52,11 +52,11 @@ namespace DamaKonzole_Framework
 
                 string prvniRadek = sr.ReadLine();
                 char hrac1 = prvniRadek[8];
-                int bily = (int)(hrac1 - '0');
+                player1 = (int)(hrac1 - '0');
 
                 string druhyRadek = sr.ReadLine();
                 char hrac2 = druhyRadek[8];
-                int cerny = (int)(hrac2 - '0');
+                player2 = (int)(hrac2 - '0');
 
                 string tretiRadek = sr.ReadLine();
                 char ptr = tretiRadek[8];
@@ -76,12 +76,12 @@ namespace DamaKonzole_Framework
                 }
 
                 rules.InitBoard();
+                rules.InitPlayer();
                 foreach (int[] pohyb in seznam)
                 {
                     board.Move(pohyb, true, false);
+                    rules.ChangePlayer();
                 }
-                player1 = bily;
-                player2 = cerny;
                 return true;
 
 

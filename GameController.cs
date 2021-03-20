@@ -23,7 +23,7 @@ namespace DamaKonzole_Framework
         public GameController()
         {
             rules = new Rules(board);
-            ui = new UI(board);
+            ui = new UI();
             brain = new Brain(board, rules);
             data = new Data();
         }
@@ -46,7 +46,7 @@ namespace DamaKonzole_Framework
                 Console.Clear();
                 ui.PocetKol(kolo);
                 ui.PocetTahuBezSkoku(rules.TahuBezSkoku);
-                ui.PrintBoard();
+                ui.PrintBoard(board);
 
                 //Tahy počítače
                 if (rules.PlayerOnMove() == 1 && player1 > 0 || rules.PlayerOnMove() == -1 && player2 > 0) //pokud hráč na tahu je 1 a player1 > 0 tak true, provede tah a continue na dalšího hráče
@@ -110,12 +110,12 @@ namespace DamaKonzole_Framework
 
                 while (!platnyVstup) //Dokud je vstup !playtnyVstup tak pokračuje
                 {
-                    vstup = ui.InputUser(rules.PlayerOnMove()); //pokud -1 tak se podmínka neprovede protože -1 >= 0, pokud 0 tak se provede 0=0 a zkontroluje se platnost tahu
+                    vstup = ui.InputUser(rules.PlayerOnMove(),board); //pokud -1 tak se podmínka neprovede protože -1 >= 0, pokud 0 tak se provede 0=0 a zkontroluje se platnost tahu
 
                     //Výpis historie tahu
                     if (vstup[0] == -4)
                     {
-                        ui.PrintHelpMove(board.HistoryMove);
+                        ui.PrintHelpMove(board.HistoryMove,board);
                     }
 
                     //Možnost tahu zpět/undo
@@ -131,7 +131,7 @@ namespace DamaKonzole_Framework
                             Console.Clear();
                             ui.PocetKol(kolo);
                             ui.PocetTahuBezSkoku(rules.TahuBezSkoku);
-                            ui.PrintBoard();
+                            ui.PrintBoard(board);
                             rules.MovesGenerate();
 
                         }
@@ -149,7 +149,7 @@ namespace DamaKonzole_Framework
                             Console.Clear();
                             ui.PocetKol(kolo);
                             ui.PocetTahuBezSkoku(rules.TahuBezSkoku);
-                            ui.PrintBoard();
+                            ui.PrintBoard(board);
                             rules.MovesGenerate();
                         }
                     }
@@ -159,11 +159,11 @@ namespace DamaKonzole_Framework
                     {
                         if (vstup.Length > 1) //Pokud ještě zadá pro jakou figurku chce help
                         {
-                            ui.PrintHelpMove(rules.GetMovesList(vstup[1], vstup[2])); //pro zadanou figurku
+                            ui.PrintHelpMove(rules.GetMovesList(vstup[1], vstup[2]),board); //pro zadanou figurku
                         }
                         else //Vypíše všechny možné tahy hráče na tahu
                         {
-                            ui.PrintHelpMove(rules.GetMovesList()); //všechny možné tahy hráče
+                            ui.PrintHelpMove(rules.GetMovesList(),board); //všechny možné tahy hráče
                             //ui.PrintHelpMove(board.HistoryMove); //všechny možné tahy hráče
                         }
                     }
@@ -202,9 +202,10 @@ namespace DamaKonzole_Framework
                             player2 = loadPlayer2;
 
                             Console.Clear();
+                            kolo = board.HistoryMove.Count / 2;
                             ui.PocetKol(kolo);
                             ui.PocetTahuBezSkoku(rules.TahuBezSkoku);
-                            ui.PrintBoard();
+                            ui.PrintBoard(board);
                             rules.MovesGenerate();
                         }
                         else
@@ -212,7 +213,6 @@ namespace DamaKonzole_Framework
                             Console.WriteLine("Chyba při načítání");
                         }
                     }
-
                     //Zpět do menu
                     if (vstup[0] == -5)
                     {
@@ -246,8 +246,8 @@ namespace DamaKonzole_Framework
                     continue;
                 }
             }
-            ui.PrintBoard();
-            ui.Finished();
+            ui.PrintBoard(board);
+            ui.Finished(board);
         }
         /// <summary>
         /// Metoda pro nastavení hodnoty políčka
