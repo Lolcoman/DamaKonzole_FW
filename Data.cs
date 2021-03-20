@@ -7,13 +7,13 @@ namespace DamaKonzole_Framework
 {
     class Data
     {
-        private Board board = new Board();
-        private Rules rules;
-        
-        public Data()
-        {
-            rules = new Rules(board);
-        }
+        //private Board board = new Board();
+        //private Rules rules;
+
+        //public Data()
+        //{
+        //    rules = new Rules(board);
+        //}
         /// <summary>
         /// Metoda pro uložení hry
         /// </summary>
@@ -41,10 +41,15 @@ namespace DamaKonzole_Framework
                 sw.Flush();
             }
         }
-        public bool LoadGame(out Board bo, out Rules ru, out int player1, out int player2)
+        public bool LoadGame(out Board board, out Rules rules, out int player1, out int player2)
         {
             using (StreamReader sr = new StreamReader(@"save.txt"))
             {
+                board = new Board();
+                rules = new Rules(board);
+                player1 = 0;
+                player2 = 0;
+
                 string prvniRadek = sr.ReadLine();
                 char hrac1 = prvniRadek[8];
                 int bily = (int)(hrac1 - '0');
@@ -75,8 +80,6 @@ namespace DamaKonzole_Framework
                 {
                     board.Move(pohyb, false, false);
                 }
-                bo = board;
-                ru = rules;
                 player1 = bily;
                 player2 = cerny;
                 return true;

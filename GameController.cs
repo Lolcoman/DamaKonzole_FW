@@ -187,11 +187,30 @@ namespace DamaKonzole_Framework
                         data.SaveGame(player1, player2, ptrTah, board.HistoryMove);
                     }
 
+                    Board loadBoard;
+                    Rules loadRules;
+                    int loadPlayer1, loadPlayer2;
+
                     //Načítání hry
                     if (vstup[0] == -9)
                     {
-                        data.LoadGame(out board,out rules,out player1,out player2);
-                        this.board = board;
+                        if (data.LoadGame(out loadBoard, out loadRules, out loadPlayer1, out loadPlayer2))
+                        {
+                            board = loadBoard;
+                            rules = loadRules;
+                            player1 = loadPlayer1;
+                            player2 = loadPlayer2;
+
+                            Console.Clear();
+                            ui.PocetKol(kolo);
+                            ui.PocetTahuBezSkoku(rules.TahuBezSkoku);
+                            ui.PrintBoard();
+                            rules.MovesGenerate();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Chyba při načítání");
+                        }
                     }
 
                     //Zpět do menu
