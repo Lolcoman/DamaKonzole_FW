@@ -75,10 +75,26 @@ namespace DamaKonzole_Framework
                     seznam.Add(celyPohyb);
                 }
 
+                if (player1 < 0 || player1 > 4)
+                {
+                    return false;
+                }
+                if (player2 < 0 ||player2 > 4)
+                {
+                    return false;
+                }
+                if (ukazatel > seznam.Count)
+                {
+                    return false;
+                }
+
                 rules.InitBoard();
                 rules.InitPlayer();
                 foreach (int[] pohyb in seznam)
                 {
+                    rules.MovesGenerate();
+                    //Kontrola zda se tahy se seznamu nachází v rules.ListMove
+
                     board.Move(pohyb, true, false);
                     rules.ChangePlayer();
                 }
