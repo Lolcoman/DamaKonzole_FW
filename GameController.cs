@@ -187,13 +187,13 @@ namespace DamaKonzole_Framework
                         data.SaveGame(player1, player2, ptrTah, board.HistoryMove);
                     }
 
-                    Board loadBoard;
-                    Rules loadRules;
-                    int loadPlayer1, loadPlayer2;
-
                     //Načítání hry
                     if (vstup[0] == -9)
                     {
+                        Board loadBoard;
+                        Rules loadRules;
+                        int loadPlayer1, loadPlayer2;
+
                         if (data.LoadGame(out loadBoard, out loadRules, out loadPlayer1, out loadPlayer2))
                         {
                             board = loadBoard;

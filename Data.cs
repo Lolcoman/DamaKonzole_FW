@@ -78,7 +78,7 @@ namespace DamaKonzole_Framework
                 rules.InitBoard();
                 foreach (int[] pohyb in seznam)
                 {
-                    board.Move(pohyb, false, false);
+                    board.Move(pohyb, true, false);
                 }
                 player1 = bily;
                 player2 = cerny;
