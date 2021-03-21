@@ -93,9 +93,17 @@ namespace DamaKonzole_Framework
                 foreach (int[] pohyb in seznam)
                 {
                     rules.MovesGenerate();
-                    //Kontrola zda se tahy se seznamu nachází v rules.ListMove
-
-                    board.Move(pohyb, true, false);
+                    foreach (int[] tahListu in rules.ListMove)
+                    {
+                        if (pohyb.SequenceEqual(tahListu))
+                        {
+                            board.Move(pohyb, true, false);
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
                     rules.ChangePlayer();
                 }
                 return true;
