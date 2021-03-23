@@ -43,7 +43,7 @@ namespace DamaKonzole_Framework
         /// <param name="player2"></param>
         /// <param name="headPtr"></param>
         /// <returns></returns>
-        public bool LoadGame(out Board board, out Rules rules, out int player1, out int player2, int headPtr)
+        public bool LoadGame(out Board board, out Rules rules, out int player1, out int player2)
         {
             using (StreamReader sr = new StreamReader(@"save.txt"))
             {
@@ -94,7 +94,6 @@ namespace DamaKonzole_Framework
                 rules.InitPlayer();
                 foreach (int[] pohyb in seznam)
                 {
-
                     foreach (int[] tahListu in rules.ListMove)
                     {
                         if (pohyb.SequenceEqual(tahListu))
@@ -107,10 +106,6 @@ namespace DamaKonzole_Framework
                         }
                     }
                     rules.ChangePlayer();
-                }
-                while (headPtr < ukazatel)
-                {
-                    
                 }
                 return true;
             }
