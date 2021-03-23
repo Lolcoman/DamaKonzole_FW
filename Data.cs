@@ -41,7 +41,7 @@ namespace DamaKonzole_Framework
                 sw.Flush();
             }
         }
-        public bool LoadGame(out Board board, out Rules rules, out int player1, out int player2)
+        public bool LoadGame(out Board board, out Rules rules, out int player1, out int player2, out int loadUkazatel)
         {
             using (StreamReader sr = new StreamReader(@"save.txt"))
             {
@@ -50,9 +50,9 @@ namespace DamaKonzole_Framework
                 player1 = 0;
                 player2 = 0;
 
-                string prvniRadek = sr.ReadLine();
-                char hrac1 = prvniRadek[8];
-                player1 = (int)(hrac1 - '0');
+                string prvniRadek = sr.ReadLine(); //načtení prvniho radku
+                char hrac1 = prvniRadek[8]; //načtení znaku z prvnihoradku
+                player1 = (int)(hrac1 - '0'); //převod charu na int
 
                 string druhyRadek = sr.ReadLine();
                 char hrac2 = druhyRadek[8];
@@ -60,7 +60,7 @@ namespace DamaKonzole_Framework
 
                 string tretiRadek = sr.ReadLine();
                 char ptr = tretiRadek[8];
-                int ukazatel = (int)(ptr - '0');
+                loadUkazatel = (int)(ptr - '0');
 
                 List<int[]> seznam = new List<int[]>();
                 string historieTahu;
@@ -83,7 +83,7 @@ namespace DamaKonzole_Framework
                 {
                     return false;
                 }
-                if (ukazatel > seznam.Count)
+                if (loadUkazatel > seznam.Count)
                 {
                     return false;
                 }
@@ -93,30 +93,26 @@ namespace DamaKonzole_Framework
                 foreach (int[] pohyb in seznam)
                 {
                     rules.MovesGenerate();
-                    foreach (int[] tahListu in rules.ListMove)
+                    bool pohybNalezen = false; //proměná bool pro nalezení pohybu     
+                    foreach (int[] tahListu in rules.ListMove) //pro každý int[] v ListMove
                     {
-                        if (pohyb.SequenceEqual(tahListu))
+                        if (pohyb.SequenceEqual(tahListu)) //Srovnání zda se pohyb ze seznamu == tahListu z ListMove
                         {
-                            board.Move(pohyb, true, false);
-                        }
-                        else
-                        {
-                            return false;
+                            board.Move(pohyb, true, false); //ano provede se tah
+                            pohybNalezen = true; //nastaví se na true
+                            break; //ukončí se cyklus
                         }
                     }
-                    rules.ChangePlayer();
+                    if (pohybNalezen) //true
+                    {
+                        rules.ChangePlayer(); //provede se změna hráče 
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 return true;
-
-
-                //foreach (int[] item in seznam)
-                //{
-                //    for (int i = 0; i < item.Length; i = i + 4)
-                //    {
-                //        Console.Write("{0}{1}{2}{3} ", (char)(item[i] + 'a'), (char)(item[1 + i] + '1'), StoneToString(item[2 + i]), StoneToString(item[3 + i]));
-                //    }
-                //    Console.WriteLine();
-                //}
             }
         }
         /// <summary>

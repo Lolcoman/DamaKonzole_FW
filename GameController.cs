@@ -175,6 +175,8 @@ namespace DamaKonzole_Framework
 
                         platnyVstup = plnyVstup[0] != -1; //ověření zda je táhnuto dle pravidel, typ bool ve while cyklu
 
+                        board.HistoryMove.Clear();
+
                         if (!platnyVstup) //pokud není vypíše uživately chybu
                         {
                             ui.Mistake(); //chyba
@@ -194,12 +196,18 @@ namespace DamaKonzole_Framework
                         Rules loadRules;
                         int loadPlayer1, loadPlayer2;
 
-                        if (data.LoadGame(out loadBoard, out loadRules, out loadPlayer1, out loadPlayer2))
+                        if (data.LoadGame(out loadBoard, out loadRules, out loadPlayer1, out loadPlayer2, out int loadUkazatel))
                         {
                             board = loadBoard;
                             rules = loadRules;
                             player1 = loadPlayer1;
                             player2 = loadPlayer2;
+                            ptrTah = board.HistoryMove.Count;
+                            while (ptrTah > loadUkazatel) //pokud aktuální ukazatel je větší než načtený
+                            {
+                                ptrTah--; //aktualní se zmenší
+                                board.Move(board.HistoryMove[ptrTah], false, true);
+                            }
 
                             Console.Clear();
                             kolo = board.HistoryMove.Count / 2;
