@@ -133,6 +133,7 @@ namespace DamaKonzole_Framework
                             ui.PocetTahuBezSkoku(rules.TahuBezSkoku);
                             ui.PrintBoard(board);
                             rules.MovesGenerate();
+
                         }
                     }
                     //Možnost tahu vpřed/redo

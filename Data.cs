@@ -7,6 +7,13 @@ namespace DamaKonzole_Framework
 {
     class Data
     {
+        //private Board board = new Board();
+        //private Rules rules;
+
+        //public Data()
+        //{
+        //    rules = new Rules(board);
+        //}
         /// <summary>
         /// Metoda pro uložení hry
         /// </summary>
@@ -34,16 +41,7 @@ namespace DamaKonzole_Framework
                 sw.Flush();
             }
         }
-        /// <summary>
-        /// Metoda pro načtení hry
-        /// </summary>
-        /// <param name="board"></param>
-        /// <param name="rules"></param>
-        /// <param name="player1"></param>
-        /// <param name="player2"></param>
-        /// <param name="headPtr"></param>
-        /// <returns></returns>
-        public bool LoadGame(out Board board, out Rules rules, out int player1, out int player2, int headPtr)
+        public bool LoadGame(out Board board, out Rules rules, out int player1, out int player2)
         {
             using (StreamReader sr = new StreamReader(@"save.txt"))
             {
@@ -94,7 +92,7 @@ namespace DamaKonzole_Framework
                 rules.InitPlayer();
                 foreach (int[] pohyb in seznam)
                 {
-
+                    rules.MovesGenerate();
                     foreach (int[] tahListu in rules.ListMove)
                     {
                         if (pohyb.SequenceEqual(tahListu))
@@ -108,11 +106,17 @@ namespace DamaKonzole_Framework
                     }
                     rules.ChangePlayer();
                 }
-                while (headPtr < ukazatel)
-                {
-                    
-                }
                 return true;
+
+
+                //foreach (int[] item in seznam)
+                //{
+                //    for (int i = 0; i < item.Length; i = i + 4)
+                //    {
+                //        Console.Write("{0}{1}{2}{3} ", (char)(item[i] + 'a'), (char)(item[1 + i] + '1'), StoneToString(item[2 + i]), StoneToString(item[3 + i]));
+                //    }
+                //    Console.WriteLine();
+                //}
             }
         }
         /// <summary>
