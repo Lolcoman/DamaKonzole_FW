@@ -175,8 +175,6 @@ namespace DamaKonzole_Framework
 
                         platnyVstup = plnyVstup[0] != -1; //ověření zda je táhnuto dle pravidel, typ bool ve while cyklu
 
-                        board.HistoryMove.Clear();
-
                         if (!platnyVstup) //pokud není vypíše uživately chybu
                         {
                             ui.Mistake(); //chyba
