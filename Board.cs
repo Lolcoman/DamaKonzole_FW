@@ -14,6 +14,7 @@ namespace DamaKonzole_Framework
         //inicializace proměnné board, jako 2D pole o rozmeřech 8x8
         private int[,] board;
 
+        public int tahuBezSkoku = 0;
         public Board()
         {
             board = new int[8, 8];
@@ -218,6 +219,21 @@ namespace DamaKonzole_Framework
                     {
                         bilaDama++;
                     }
+                }
+            }
+        }
+        public void VypocitejTahyBezSkoku(int pointer)
+        {
+            tahuBezSkoku = 0;
+            for (int i = pointer; i > 0; i--)
+            {
+                if (HistoryMove[i].Length == 8)
+                {
+                    tahuBezSkoku++;
+                }
+                else
+                {
+                    return;
                 }
             }
         }

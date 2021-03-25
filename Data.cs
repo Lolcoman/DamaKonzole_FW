@@ -41,7 +41,7 @@ namespace DamaKonzole_Framework
                 sw.Flush();
             }
         }
-        public bool LoadGame(out Board board, out Rules rules, out int player1, out int player2, out int loadUkazatel)
+        public bool LoadGame(out Board board, out Rules rules, out int player1, out int player2, out int loadUkazatel, out int loadTahuBezSkoku)
         {
             using (StreamReader sr = new StreamReader(@"save.txt"))
             {
@@ -49,6 +49,7 @@ namespace DamaKonzole_Framework
                 rules = new Rules(board);
                 player1 = 0;
                 player2 = 0;
+                loadTahuBezSkoku = 0;
 
                 string prvniRadek = sr.ReadLine(); //načtení prvniho radku
                 char hrac1 = prvniRadek[8]; //načtení znaku z prvnihoradku
@@ -73,6 +74,18 @@ namespace DamaKonzole_Framework
                         celyPohyb = celyPohyb.Concat(castPohybu).ToArray();
                     }
                     seznam.Add(celyPohyb);
+                }
+
+                foreach (int[] skok in seznam)
+                {
+                    if (skok.Length == 8)
+                    {
+                        loadTahuBezSkoku++;
+                    }
+                    else
+                    {
+                        loadTahuBezSkoku = 0;
+                    }
                 }
 
                 if (player1 < 0 || player1 > 4)

@@ -126,14 +126,13 @@ namespace DamaKonzole_Framework
                             ptrTah--;
                             posledniTah = board.HistoryMove[ptrTah];
                             board.Move(posledniTah, false, true);
-                            rules.TahuBezSkoku--;
                             rules.ChangePlayer();
                             Console.Clear();
                             ui.PocetKol(kolo);
-                            ui.PocetTahuBezSkoku(rules.TahuBezSkoku);
+                            board.VypocitejTahyBezSkoku(ptrTah);
+                            ui.PocetTahuBezSkoku(board.tahuBezSkoku);
                             ui.PrintBoard(board);
                             rules.MovesGenerate();
-
                         }
                     }
                     //Možnost tahu vpřed/redo
@@ -175,6 +174,8 @@ namespace DamaKonzole_Framework
 
                         platnyVstup = plnyVstup[0] != -1; //ověření zda je táhnuto dle pravidel, typ bool ve while cyklu
 
+                        ClearHistoryFromToEnd(ptrTah);
+
                         if (!platnyVstup) //pokud není vypíše uživately chybu
                         {
                             ui.Mistake(); //chyba
@@ -194,13 +195,15 @@ namespace DamaKonzole_Framework
                         Rules loadRules;
                         int loadPlayer1, loadPlayer2;
 
-                        if (data.LoadGame(out loadBoard, out loadRules, out loadPlayer1, out loadPlayer2, out int loadUkazatel))
+                        if (data.LoadGame(out loadBoard, out loadRules, out loadPlayer1, out loadPlayer2, out int loadUkazatel, out int loadTahuBezSkoku))
                         {
                             board = loadBoard;
                             rules = loadRules;
                             player1 = loadPlayer1;
                             player2 = loadPlayer2;
                             ptrTah = board.HistoryMove.Count;
+                            rules.TahuBezSkoku = loadTahuBezSkoku;
+                            
                             while (ptrTah > loadUkazatel) //pokud aktuální ukazatel je větší než načtený
                             {
                                 ptrTah--; //aktualní se zmenší
@@ -265,10 +268,20 @@ namespace DamaKonzole_Framework
         {
             board.SetValue(posX, posY, value);
         }
-
+        /// <summary>
+        /// Metoda pro hlavní menu
+        /// </summary>
         public void Start()
         {
             ui.HlavniMenu();
+        }
+        /// <summary>
+        /// Metoda smaže historii od pointeru
+        /// </summary>
+        /// <param name="ptrTah"></param>
+        public void ClearHistoryFromToEnd(int ptrTah)
+        {
+            board.HistoryMove.RemoveRange(ptrTah, board.HistoryMove.Count - ptrTah); //odstraní tahy=index ptrTah, od indexu Count-ptrTah
         }
     }
 }
