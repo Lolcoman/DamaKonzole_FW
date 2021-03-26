@@ -12,9 +12,9 @@ namespace DamaKonzole_Framework
     {
         private Board board = new Board();
         private Rules rules;
-        private UI ui;
+        private UI ui = new UI();
         private Brain brain;
-        private Data data;
+        private Data data = new Data();
         private MoveServices moveServices = new MoveServices();
 
         //proměnné hráčů, pro uživatele 0, 1-4 obtížnost PC
@@ -23,10 +23,10 @@ namespace DamaKonzole_Framework
 
         public GameController()
         {
-            rules = new Rules(board);
-            ui = new UI();
             brain = new Brain(board, rules);
-            data = new Data();
+            rules = new Rules(board);
+            //ui = new UI();
+            //data = new Data();
         }
         /// <summary>
         /// Hlavní herní smyčka

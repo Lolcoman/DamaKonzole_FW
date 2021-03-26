@@ -41,6 +41,10 @@ namespace DamaKonzole_Framework
                 {
                     vstupSmycky1 = false;
                 }
+                if (vstupUzivatele1.Length == 1)
+                {
+                    vstupSmycky1 = false;
+                }
                 else
                 {
                     Console.WriteLine("Vyberte bílého hráče pro lidského 0, pro počítač 1-4");
@@ -53,6 +57,10 @@ namespace DamaKonzole_Framework
             while (vstupSmycky2)
             {
                 if ((int.TryParse(vstupUzivatele2, out player2)) && player2 <= 4 && player2 >= 0)
+                {
+                    vstupSmycky2 = false;
+                }
+                if (vstupUzivatele2.Length == 1)
                 {
                     vstupSmycky2 = false;
                 }
