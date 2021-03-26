@@ -14,7 +14,8 @@ namespace DamaKonzole_Framework
         private Rules rules;
         private UI ui;
         private Brain brain;
-        private Data data;   
+        private Data data;
+        private MoveServices moveServices = new MoveServices();
 
         //proměnné hráčů, pro uživatele 0, 1-4 obtížnost PC
         private int player1 = 0;
@@ -36,7 +37,7 @@ namespace DamaKonzole_Framework
             ui.SelectPlayer(out player1, out player2); //výběr hráče na tahu
             rules.InitPlayer(); //inicializace hráče na tahu
             rules.MovesGenerate(); //vygenerování všech tahů pro aktuálního hráče tj. 1-bílý
-            rules.TahuBezSkoku = 0;
+            board.tahuBezSkoku = 0;
             int kolo = 0; //počítadlo kol
             int ptrTah = board.HistoryMove.Count;//ukazatel na poslední tah v historii tahů
             int[] posledniTah = null; //uložen poslední tah
@@ -45,7 +46,7 @@ namespace DamaKonzole_Framework
             {
                 Console.Clear();
                 ui.PocetKol(kolo);
-                ui.PocetTahuBezSkoku(rules.TahuBezSkoku);
+                ui.PocetTahuBezSkoku(board.tahuBezSkoku);
                 ui.PrintBoard(board);
 
                 //Tahy počítače
@@ -88,11 +89,11 @@ namespace DamaKonzole_Framework
                     //pokud tah není skok tak se navýší počítadlo TahuBezSkoku
                     if (move.Length == 8)
                     {
-                        rules.TahuBezSkoku++;
+                        board.tahuBezSkoku++;
                     }
                     else
                     {
-                        rules.TahuBezSkoku = 0;
+                        board.tahuBezSkoku = 0;
                     }
 
                     kolo = board.HistoryMove.Count / 2; //přičtení do počítadla kol
@@ -125,14 +126,20 @@ namespace DamaKonzole_Framework
                         {
                             ptrTah--;
                             posledniTah = board.HistoryMove[ptrTah];
-                            board.Move(posledniTah, false, true);
-                            rules.ChangePlayer();
-                            Console.Clear();
-                            ui.PocetKol(kolo);
-                            board.VypocitejTahyBezSkoku(ptrTah);
-                            ui.PocetTahuBezSkoku(board.tahuBezSkoku);
-                            ui.PrintBoard(board);
-                            rules.MovesGenerate();
+                            moveServices.TahZpet(board,rules, ui,ptrTah, posledniTah, kolo);
+
+
+                            //ptrTah--;
+                            //posledniTah = board.HistoryMove[ptrTah];
+                            //board.Move(posledniTah, false, true);
+                            //rules.ChangePlayer();
+                            //Console.Clear();
+                            //kolo = board.HistoryMove.Count / 2;
+                            //ui.PocetKol(kolo);
+                            //board.VypocitejTahyBezSkoku(ptrTah);
+                            //ui.PocetTahuBezSkoku(board.tahuBezSkoku);
+                            //ui.PrintBoard(board);
+                            //rules.MovesGenerate();
                         }
                     }
                     //Možnost tahu vpřed/redo
@@ -141,15 +148,19 @@ namespace DamaKonzole_Framework
                         if (ptrTah < board.HistoryMove.Count && board.HistoryMove.Count > 0)
                         {
                             posledniTah = board.HistoryMove[ptrTah];
-                            board.Move(posledniTah, false, false);
-                            ptrTah++;
-                            rules.TahuBezSkoku++;
-                            rules.ChangePlayer();
-                            Console.Clear();
-                            ui.PocetKol(kolo);
-                            ui.PocetTahuBezSkoku(rules.TahuBezSkoku);
-                            ui.PrintBoard(board);
-                            rules.MovesGenerate();
+                            moveServices.TahVpred(board, rules, ui, ptrTah, posledniTah, kolo);
+
+
+                            //board.Move(posledniTah, false, false);
+                            //ptrTah++;
+                            //rules.ChangePlayer();
+                            //Console.Clear();
+                            //kolo = board.HistoryMove.Count / 2;
+                            //ui.PocetKol(kolo);
+                            //board.VypocitejTahyBezSkoku(ptrTah);
+                            //ui.PocetTahuBezSkoku(board.tahuBezSkoku);
+                            //ui.PrintBoard(board);
+                            //rules.MovesGenerate();
                         }
                     }
 
@@ -202,7 +213,7 @@ namespace DamaKonzole_Framework
                             player1 = loadPlayer1;
                             player2 = loadPlayer2;
                             ptrTah = board.HistoryMove.Count;
-                            rules.TahuBezSkoku = loadTahuBezSkoku;
+                            board.tahuBezSkoku = loadTahuBezSkoku;
                             
                             while (ptrTah > loadUkazatel) //pokud aktuální ukazatel je větší než načtený
                             {
@@ -213,7 +224,7 @@ namespace DamaKonzole_Framework
                             Console.Clear();
                             kolo = board.HistoryMove.Count / 2;
                             ui.PocetKol(kolo);
-                            ui.PocetTahuBezSkoku(rules.TahuBezSkoku);
+                            ui.PocetTahuBezSkoku(board.tahuBezSkoku);
                             ui.PrintBoard(board);
                             rules.MovesGenerate();
                         }
@@ -238,11 +249,11 @@ namespace DamaKonzole_Framework
 
                 if (plnyVstup.Length == 8)
                 {
-                    rules.TahuBezSkoku++;
+                    board.tahuBezSkoku++;
                 }
                 else
                 {
-                    rules.TahuBezSkoku = 0;
+                    board.tahuBezSkoku = 0;
                 }
 
                 if (rules.ListMove.Count == 0) //pokud je ListMove prázdnej tak se změní hráč na tahu a vygenerují se pro něj nové možné tahy

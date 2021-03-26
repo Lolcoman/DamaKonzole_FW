@@ -7,13 +7,6 @@ namespace DamaKonzole_Framework
 {
     class Data
     {
-        //private Board board = new Board();
-        //private Rules rules;
-
-        //public Data()
-        //{
-        //    rules = new Rules(board);
-        //}
         /// <summary>
         /// Metoda pro uložení hry
         /// </summary>

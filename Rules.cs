@@ -28,7 +28,9 @@ namespace DamaKonzole_Framework
             {-1,-1},//dozadu vlevo 7
 
         };
-        public int TahuBezSkoku;
+
+        //public int TahuBezSkoku;
+
         //privátní proměnná hráče
         private int player;
 
@@ -40,7 +42,6 @@ namespace DamaKonzole_Framework
         public Rules(Board bo,Rules rules)
         {
             board = bo;
-            TahuBezSkoku = rules.TahuBezSkoku;
             player = rules.player;
             foreach (int[] item in rules.ListMove)
             {
@@ -379,8 +380,7 @@ namespace DamaKonzole_Framework
             {
                 return true;
             }
-
-            if (TahuBezSkoku >= 30)
+            if (board.tahuBezSkoku >= 30)
             {
                 return true;
             }
