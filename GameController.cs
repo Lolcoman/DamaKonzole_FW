@@ -230,7 +230,7 @@ namespace DamaKonzole_Framework
                         }
                         else
                         {
-                            Console.WriteLine("Chyba při načítání");
+                            ui.Mistake();
                         }
                     }
                     //Zpět do menu
