@@ -23,11 +23,11 @@ namespace DamaKonzole_Framework
 
         public GameController()
         {
-            brain = new Brain(board, rules);
             rules = new Rules(board);
+            brain = new Brain(board, rules);
             //ui = new UI();
             //data = new Data();
-        }
+        }   
         /// <summary>
         /// Hlavní herní smyčka
         /// </summary>
@@ -219,6 +219,7 @@ namespace DamaKonzole_Framework
                             {
                                 ptrTah--; //aktualní se zmenší
                                 board.Move(board.HistoryMove[ptrTah], false, true);
+                                rules.ChangePlayer();
                             }
 
                             Console.Clear();
